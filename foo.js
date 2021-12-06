@@ -1,3 +1,4 @@
+/* Operation function declaration */
 function add(num1, num2) {
     return num1 + num2
 }
@@ -29,3 +30,24 @@ function operate(operator, num1, num2) {
         return divide(num1,num2)
     }
 }
+
+/* variable statement section */
+const display = document.querySelector("#display")
+const numberButton = document.querySelectorAll(".number")
+const displayValue = display.textContent
+/* TextWrite Section*/
+function buttonEventListenerAdd(target, listener, functionToAdd) {
+    for(let i=0; i < target.length; i++) {
+        target[i].addEventListener(listener, functionToAdd);
+    }
+}
+
+function textWrite() {
+    let currentText = display.textContent;
+    let textToWrite = this.textContent;
+    display.textContent += textToWrite;
+
+} 
+
+buttonEventListenerAdd(numberButton, "click", textWrite)
+
