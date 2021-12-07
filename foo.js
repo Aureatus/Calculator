@@ -31,15 +31,16 @@ function operate(operator, num1, num2) {
     }
 }
 
-/* variable statement section */
+
 const display = document.querySelector("#display")
 const numberButton = document.querySelectorAll(".number")
-let  displayValue
 const operatorButton = document.querySelectorAll(".operator")
-let numericalValue1
-let numericalvalue2
-let OperatorButtonPressCounter = 0
-/* TextWrite Section*/
+const body = document.body
+let number1
+let number2 
+let chosenOperator
+let hasOperatorBeenChosen = false
+let answer
 function buttonEventListenerAdd(target, listener, functionToAdd) {
     for(let i=0; i < target.length; i++) {
         target[i].addEventListener(listener, functionToAdd);
@@ -49,45 +50,74 @@ function buttonEventListenerAdd(target, listener, functionToAdd) {
 function textWrite(input) {
     let textToWrite = input.textContent;
     display.textContent += textToWrite;
-
 } 
+
+function numberFormatter(input) {
+    input = input.replace(number1, "")
+    input = input.replace(operatorHtmlText, "")
+    return input
+}
 function numberButtonPress() {
-    textWrite(this)
+    if (!hasOperatorBeenChosen) {
+        textWrite(this)
+        number1 = display.textContent
+    }
+    else if(hasOperatorBeenChosen) {
+        textWrite(this)
+        number2 = display.textContent
+        number2 = numberFormatter(number2)
+    }
+    }
+
+function operatorConversion(input) {
+    operatorHtmlText = input.textContent
+    if (input.textContent === "÷") {
+        chosenOperator = "/"
+    }
+    else if (input.textContent === "×") {
+        chosenOperator = "*"
+    }
+    else if (input.textContent === "+") {
+        chosenOperator = "+"
+    }
+    else if (input.textContent === "-") {
+        chosenOperator = "-"
+    }
+}
+function operatorButtonPress() {
+    if (!hasOperatorBeenChosen) {
+        hasOperatorBeenChosen = true
+        operatorConversion(this)
+        textWrite(this)
+    }
+    else return
 
 }
 
-
-function operatorSelection() {
-    if (OperatorButtonPressCounter < 1) {
-        numericalValue1 = display.textContent
-    }
-    OperatorButtonPressCounter += 1
-    let chosenOperator = this.textContent
-    if (chosenOperator === "×") {
-        convertedOperator = "*"
-    }
-    else if (chosenOperator === "÷") {
-        convertedOperator = "/"
-    }
-    else if (OperatorButtonPressCounter >= 1) {
-        numericalvalue2 = 1
-    }
-    else {
-        convertedOperator = chosenOperator
-    }
-    display.textContent += chosenOperator;
-    console.log(numericalvalue2)
-    console.log(OperatorButtonPressCounter)
+function calculation() {
+    answer = operate(chosenOperator,Number(number1),Number(number2))
+    return
 }
 
-function calculation(event) {
-    if (event.key === "=") {
-        operate()
-    }
+function equals() {
+    calculation()
+    display.textContent = answer
+    hasOperatorBeenChosen = false
+    chosenOperator = null
+    number1 = answer
+    number2 = null
 }
+
+function keyChecker(input) {
+    if (input.keyCode === 187) {
+        equals()
+        } 
+}
+
+
+
 
 buttonEventListenerAdd(numberButton, "click", numberButtonPress)
-buttonEventListenerAdd(operatorButton, "click", operatorSelection)
-document.addEventListener("keydown", calculation)
-
+buttonEventListenerAdd(operatorButton, "click", operatorButtonPress)
+document.addEventListener("keydown", keyChecker)
 /* Restart tomorrow and attempt again */
