@@ -1,4 +1,3 @@
-/* Operation function declaration */
 function add(num1, num2) {
     return num1 + num2
 }
@@ -35,11 +34,12 @@ function operate(operator, num1, num2) {
 const display = document.querySelector("#display")
 const numberButton = document.querySelectorAll(".number")
 const operatorButton = document.querySelectorAll(".operator")
+const equalsButton = document.querySelectorAll("#equals")
 const body = document.body
 let number1
 let number2 
 let chosenOperator
-let hasOperatorBeenChosen = false
+let hasOperatorBeenChosen = null
 let answer
 function buttonEventListenerAdd(target, listener, functionToAdd) {
     for(let i=0; i < target.length; i++) {
@@ -71,10 +71,10 @@ function numberButtonPress() {
 
 function operatorConversion(input) {
     operatorHtmlText = input.textContent
-    if (input.textContent === "÷") {
+    if (input.textContent === "/") {
         chosenOperator = "/"
     }
-    else if (input.textContent === "×") {
+    else if (input.textContent === "*") {
         chosenOperator = "*"
     }
     else if (input.textContent === "+") {
@@ -83,14 +83,25 @@ function operatorConversion(input) {
     else if (input.textContent === "-") {
         chosenOperator = "-"
     }
-}
+}  
 function operatorButtonPress() {
-    if (!hasOperatorBeenChosen) {
+    if (hasOperatorBeenChosen === null) {
+        operatorConversion(this)
+        textWrite(this)
         hasOperatorBeenChosen = true
+    }
+    else if (hasOperatorBeenChosen) {
+        if (number2 === undefined) {
+            console.log(operatorConversion(this))
+            display.textContent.replace(chosenOperator, "")
+            console.log(display.textContent)
+            number2=number1
+        }
+        
+        equals()
         operatorConversion(this)
         textWrite(this)
     }
-    else return
 
 }
 
@@ -102,10 +113,7 @@ function calculation() {
 function equals() {
     calculation()
     display.textContent = answer
-    hasOperatorBeenChosen = false
-    chosenOperator = null
     number1 = answer
-    number2 = null
 }
 
 function keyChecker(input) {
@@ -119,5 +127,5 @@ function keyChecker(input) {
 
 buttonEventListenerAdd(numberButton, "click", numberButtonPress)
 buttonEventListenerAdd(operatorButton, "click", operatorButtonPress)
+buttonEventListenerAdd(equalsButton, "click", equals)
 document.addEventListener("keydown", keyChecker)
-/* Restart tomorrow and attempt again */
