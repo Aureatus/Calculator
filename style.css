@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0%;
+    background-color:rgba(255, 105, 180, 0.288);
 }
 
 #container {
@@ -10,29 +11,33 @@ html, body {
     align-items: center;
     height: 100%;
     width: 100%;
+    border-style: solid;
 }
 
 .btn {
     display: grid;
     grid-template-columns: repeat(4, 11.6fr);
-    grid-template-rows: repeat(4, 11.6fr);
-    border:thistle;
+    grid-template-rows: repeat(5, 11.6fr);
+    border:khaki;
     border-width: 4px;
     border-style: solid;
     border-top-width: 2px;
+    box-shadow: rgba(0, 0, 0, 0.500) 0px 0px 1px 1px;
+    
 }
 
 button {
     height: 100px;
     width: 100px;
     background-color: lightsteelblue;
-    border-width: 0.5px;
+    border-width: 4px;
     border-style: outset;
-    border-color: gold;
+    border-color:azure;
     font-size: 20px;
     font-family:monospace;
     text-shadow:plum 0.8px 0.8px;
-    border-radius: 4%;
+    border-radius: 6%;
+    box-shadow: rgba(0, 0, 0, 0.500) 0.5px 0.5px 0.5px 0.5px;
 }
 
 #display {
@@ -40,12 +45,26 @@ button {
     height: 80px;
     text-align: center;
     background-color: rgba(241, 238, 207, 0.712);
-    border:thistle;
+    border:khaki;
     border-width: 4px;
     border-bottom-width: 2px;
     border-style:solid;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.500) 0px 0px 1px 1px;
     
+}
+
+.operator {
+    color:mintcream;
+    text-shadow: black 1.5px 1.5px;
+}
+#clear {
+    color:mintcream;
+    text-shadow: black 1.5px 1.5px;
+}
+#equals {
+    color:mintcream;
+    text-shadow: black 1.5px 1.5px;
 }
